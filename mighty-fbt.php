@@ -110,7 +110,7 @@ class Mighty_fbt
         $page_id = get_the_ID();
         $data['product_type'] = sanitize_text_field($_POST['product_type']);
         if ($data['product_type'] == 'custom_selection') {
-            $data['selected_products'] = sanitize_text_field($_POST['selected_products']);
+            $data['selected_products'] = $_POST['selected_products'];
         }
         $data['show_product'] = sanitize_text_field($_POST['show_product']);
         $data['num_of_product'] = sanitize_text_field($_POST['num_of_product']);
