@@ -1,0 +1,59 @@
+.title-box {
+    margin-top: 13px;
+    background: white;
+    padding: 6px 17px;
+    border-top: 5px solid #0085ba;
+}
+
+.active {
+    box-shadow: inset 0 -3px #007cba;
+    font-weight: bold;
+}
+
+.tabs {
+    margin-top: 20px;
+}
+
+.tabs a {
+    text-decoration: none;
+    color: black;
+    padding: 13px 15px;
+    margin: 0px 2px;
+    background: white;
+}
+
+.mighty-product-name {
+    color: black;
+    font-weight: bolder;
+    font-size: 18px;
+}
+
+.mighty-more-themes-plugins-button {
+    background-color: #23282d;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 3px;
+}
+
+.mighty-more-themes-plugins-button img {
+    max-width: 18px;
+    float: left;
+    margin-right: 10px;
+}
+
+.mighty-brand {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mighty-brand .logo {
+    vertical-align: middle;
+    height: 70px;
+    width: 70px;
+}
+
