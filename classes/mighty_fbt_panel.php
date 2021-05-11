@@ -53,7 +53,9 @@ class Mighty_panel
             __('Mighty FBT', 'mighty-fbt'),
             'manage_options',
             'mighty-fbt-home',
-            [$this, 'generate_homepage']
+            [$this, 'generate_homepage'],
+            MIGHTY_FBT_PLG_URL . 'assets/images/mighty-themes-logo.svg'
+
             
         );
 
