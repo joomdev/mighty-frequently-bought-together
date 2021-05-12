@@ -27,12 +27,6 @@ class Mighty_panel
     
     public function mighty_enqueue_scripts( $hook )
     {
-        if( strpos($hook, self::PLG_SLUG) !== false ) {
-            // ⚠ Proceed with caution
-        } else {
-            return;
-        }
-
         wp_enqueue_style(
             'mighty-style',
             MIGHTY_FBT_PLG_URL . 'assets/css/style.css',
