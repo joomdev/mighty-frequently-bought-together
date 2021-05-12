@@ -82,7 +82,10 @@ $layout = [
             <tr>
                 <th scope="row"><label for="blogdescription">Delete all data on uninstall</label></th>
                 <td>
+                <label class="switch">
                 <input type="checkbox" name="uninstall_data" class="uninstall_data" <?php echo (isset($setting_data['uninstall_data']) && $setting_data['uninstall_data'] == 'yes') ? 'checked' : ''; ?> value="<?php echo (isset($setting_data['uninstall_data'])) ? $setting_data['uninstall_data'] : '' ?>">
+                <span class="slider round"></span>
+                    </label>
                 </td>
             </tr>
         </tbody>

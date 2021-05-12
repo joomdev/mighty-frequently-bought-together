@@ -36,9 +36,11 @@ class MightyHelper
     public static function updateDefaultStyling()
     {
         if (
+
             get_option('mighty_fbt_label-style_data') &&
             isset(get_option('mighty_fbt_label-style_data')['version']) &&
             get_option('mighty_fbt_label-style_data')['version'] === MIGHTY_FBT_VERSION
+            
         ) {
             // do nothing
         } else {

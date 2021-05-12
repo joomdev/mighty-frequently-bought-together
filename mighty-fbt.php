@@ -59,6 +59,14 @@ class Mighty_fbt
             MIGHTY_FBT_VERSION,
             true // in footer?
         );
+        
+        wp_enqueue_script(
+            'mighty-product-form',
+            MIGHTY_FBT_PLG_URL . 'assets/js/product_form.js',
+            [ 'jquery' ],
+            MIGHTY_FBT_VERSION,
+            true // in footer?
+        );
 
         wp_enqueue_style(
             'mighty-select2',
