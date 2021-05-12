@@ -35,7 +35,7 @@ Full Styling options.
 * Compatible with all WordPress themes and WooCommerce plugins.
 
 ## Have any questions or facing any issue?
-We are proud of our support team. If you are facing any issue or have any questions regarding Mighty Addons for Elementor, feel free to **[post us on our support forum](https://mightythemes.com/support/c/mighty-addons/)**. Our technical team would love to help you. 
+We are proud of our support team. If you are facing any issue or have any questions regarding Mighty Addons for Elementor, feel free to **[post us on our support forum](https://mightythemes.com/support/c/mighty-frequently-bought-together-for-woocommerce/)**. Our technical team would love to help you. 
 
 #### Developer? Want to contribute?
 
