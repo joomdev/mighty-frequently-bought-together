@@ -1,3 +1,5 @@
+# Mighty Frequently Bought Together for WooCommerce
+
 Contributors: mightythemes1
 Author URI: https://mightythemes.com
 Plugin URI: https://mightythemes.com/products/mighty-frequently-bought-together
