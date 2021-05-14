@@ -9,7 +9,6 @@ Requires PHP: 5.6
 Stable Tag: 1.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-
 Tags: frequently bought together, mighty, frequently bought products, bought together
 
 Increase your product sales by recommending them to buy together with other relevant products on your WooCommerce Store.
