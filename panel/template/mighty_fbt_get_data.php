@@ -185,7 +185,7 @@ class Mighty_fbt_page
 
                         } else if ($no_of_alternate_product > 2 ) {
                             
-                            $no_of_product = $current_product['num_of_product'];
+                            $no_of_product = ( isset( $current_product['num_of_product'] ) ) ? $current_product['num_of_product'] : '';
                             
                             if ($no_of_product && $no_of_product >= 2 && $current_product['show_product'] == 'random_limited_products') {
 
