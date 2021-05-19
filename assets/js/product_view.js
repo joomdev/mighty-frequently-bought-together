@@ -38,9 +38,10 @@
     product_toggle.toggle("fast");
 
     var amount_feild = $(".mt-fbt-price-ammount");
-    var total_price = parseInt(amount_feild.text().replace(/,/g, ""));
-    var product_price = parseInt(
-      $(this).data("product_price").replace(/,/g, "")
+    var total_price = parseFloat(amount_feild.text());
+   
+    var product_price = parseFloat(
+      $(this).data("product_price")
     );
     var check = $(this).prop("checked");
     if (check) {

@@ -31,7 +31,7 @@ class Mighty_fbt_page
     public function mighty_enqueue_scripts()
     {
         wp_enqueue_style('mighty_fbt_style', MIGHTY_FBT_PLG_URL . "assets/css/fbt.css");
-        wp_enqueue_style('mighty_fbt_grid_style', MIGHTY_FBT_PLG_URL . "assets/css/grid.css");
+        // wp_enqueue_style('mighty_fbt_grid_style', MIGHTY_FBT_PLG_URL . "assets/css/grid.css");
         wp_enqueue_style('mighty_fbt_main_style', MIGHTY_FBT_PLG_URL . "assets/css/main.css");
        
         wp_enqueue_script(
@@ -147,7 +147,7 @@ class Mighty_fbt_page
 
                     if($current_product && $current_product['product_type'] == 'custom_selection' &&  $current_product['selected_products']){
     
-                        $no_of_product = $current_product['num_of_product'];
+                       $no_of_product = ( isset( $current_product['num_of_product'] ) ) ? $current_product['num_of_product'] : '';
     
                         $alternates_products = $current_product['selected_products'];
     
