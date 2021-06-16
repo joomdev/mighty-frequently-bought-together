@@ -47,7 +47,10 @@
   /* flex-wrap: wrap; */
   align-items: center;
 }
+.mt-fbt-price-ammount{
+  padding-right: 10px;
 
+}
 .mt-fbt-image {
   line-height: 0;
   display: inline-block;
@@ -74,6 +77,7 @@
   padding: 8px 16px;
   border-radius: 4px;
   cursor: pointer;
+  display: inline-block;
 }
 
 .mt-fbt-check-label a,
@@ -85,9 +89,7 @@
 }
 
 .mt-fbt-form-v1 .mt-fbt-top-box {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
+  display: block;
   margin-bottom: 20px;
 }
 .mt-fbt-items{
@@ -96,7 +98,7 @@
 
 .mt-fbt-form-v1 .mt-fbt-image-box {
   margin-right: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 0px;
 }
 
 .mt-fbt-form-v1 .mt-fbt-item:not(:last-child) {
@@ -106,6 +108,7 @@
 .mt-fbt-form-v2 {
   display: flex;
   flex-wrap: wrap;
+  width: 100%;
 }
 
 .mt-fbt-form-v2 .mt-fbt-additional-text {
@@ -117,6 +120,8 @@
   padding: 20px;
   background-color: #add8e6;
   height: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .mt-fbt-image img {
@@ -132,6 +137,7 @@
 .mt-fbt-form-v2 .mt-fbt-image-box {
   align-items: flex-start;
   margin-right: 40px;
+  overflow: hidden;
 }
 
 .mt-fbt-form-v2 .mt-fbt-plus {
@@ -146,6 +152,8 @@
   text-align: center;
   justify-content: center;
   flex-direction: column;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .mt-fbt-form-v2 .mt-fbt-total-price span {
@@ -183,6 +191,10 @@
   left: 10px;
   border: 10px solid transparent;
   border-bottom-color: #ca1e1e;
+}
+
+.mt-fbt-form-v3 .mt-fbt-price-box {
+  margin-bottom: 20px;
 }
 
 /* Plus icon */

@@ -3,17 +3,23 @@
 if (!defined('ABSPATH')) {
     exit;
 }
-$all_ids = get_posts(array(
+$all_ids = get_posts( array(
     'post_type' => 'product',
-    'fields' => 'names',
+    'numberposts' => -1,
+    'post_status' => 'publish',
+    'fields' => 'ids',
+) );
 
-));
 $page_id = get_the_ID();
+$key = array_search($page_id, $all_ids);
+unset( $all_ids[$key] );
 
-$rem_id = array_search($page_id, array_column($all_ids, 'ID'));
-unset($all_ids[$rem_id]);
-$product_value = [' '=>' Select an Option','use_related'=>'Use Related', 'custom_selection'=>'Custom selection'];
+$product_value = [' '=>' Select an Option','use_related'=>'Use Related', 'custom_selection'=>'Custom Selection'];
 $show_product = ['all_selected'=>'All Selected', 'random_limited_products' => 'Random Limited Products'];
+
+$pro_product = '';
+
+
 ?>
 <style>
     .no_of_product_rand,
@@ -44,25 +50,23 @@ $show_product = ['all_selected'=>'All Selected', 'random_limited_products' => 'R
                 </tr>
 
                 <tr class="select_product">
-                    <th>Select products</th>
+                    <th>Select Products</th>
                     <td>
                         <div class="dropdown-mul-1">
-
                             <select class="mySelect for" name="selected_products[]" multiple="multiple" id="multiselect" style="width: 100%">
 
-                                <?php foreach ($all_ids as $value) { ?>
+                                <?php foreach ($all_ids as $id) { ?>
 
                                     <?php if (isset($current_product_data['selected_products']) && (is_array($current_product_data['selected_products']) && count($current_product_data['selected_products']) > 0)) { ?>
 
                                         <option 
 
-                                        <?php echo (in_array($value->ID, $current_product_data['selected_products']) ? 'selected' : '') ?> value="<?php echo $value->ID; ?>"><?php echo $value->post_title . '#' . $value->ID; ?>
+                                        <?php echo (in_array($id, $current_product_data['selected_products']) ? 'selected' : '') ?> value="<?php echo $id; ?>"><?php echo wc_get_product($id)->get_title() . ' # ' . $id; ?>
 
                                          </option>
 
                                     <?php } else { ?>
-
-                                        <option value="<?php echo $value->ID; ?>"><?php echo $value->post_title . '#' . $value->ID; ?> </option>
+                                        <option value="<?php echo $id; ?>"><?php echo wc_get_product($id)->get_title() . ' # ' . $id; ?> </option>
                                     <?php  } ?>
                                 <?php } ?>
                             </select>
@@ -73,16 +77,18 @@ $show_product = ['all_selected'=>'All Selected', 'random_limited_products' => 'R
                 <tr>
                     <th>Show Product</th>
                     <td>
-
+                    <?php if($show_product){?>
                         <?php foreach ($show_product as $key => $value) { ?>
 
-                            <input type="radio" id="all_selected" class="show_product" name="show_product" 
+                            <input type="radio" id="all_selected" class="show_product" name="show_product"  
 
-                            <?php echo (( isset($current_product_data['show_product']) && (strtolower($current_product_data['show_product']) == strtolower($key)))  ? 'checked' : '')  ?>
+                            <?php echo (isset($current_product_data['show_product']) )?(((strtolower($current_product_data['show_product']) == strtolower($key)))  ? 'checked' : ''):'checked';  ?>
 
                            value="<?php echo $key; ?>"> <?php echo $value; ?>
 
                         <?php } ?>
+                        <?php }  ?>
+                        
 
                     </td>
                 </tr>
@@ -98,7 +104,9 @@ $show_product = ['all_selected'=>'All Selected', 'random_limited_products' => 'R
                     </td>
 
                 </tr>
+                <?php echo $pro_product;?>
             </tbody>
         </table>
     </form>
 </div>
+

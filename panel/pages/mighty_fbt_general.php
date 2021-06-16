@@ -15,20 +15,24 @@ $default_product = [
 ];
 
 $box_position = [
-    'woocommerce_after_single_product_summary' => 'Below Product Summary',
+    'woocommerce_short_description' => 'Below Product Summary',
     'woocommerce_after_single_product' => 'Below Product Tabs'
 ];
 
 $layout = [
     'view_1' => 'View 1'
 ];
+
+
+$pro_general = '';
+
 ?>
 
 <form method="post" action="" novalidate="novalidate">
     <table class="form-table" role="presentation">
         <tbody>
             <tr>
-                <th scope="row"><label for="blogname">Pricing method</label></th>
+                <th scope="row"><label for="blogname">Pricing Method</label></th>
                 <td><select name="pricing_method" id="default_role">
 
                         <?php foreach ($pricing_method as $key => $value) { ?>
@@ -42,7 +46,7 @@ $layout = [
             </tr>
 
             <tr>
-                <th scope="row"><label for="blogdescription">Default products</label></th>
+                <th scope="row"><label for="blogdescription">Default Products</label></th>
                 <td><select name="default_product" id="default_role">
                         <?php foreach ($default_product as $key => $value) { ?>
 
@@ -79,11 +83,13 @@ $layout = [
                     </select>
                 </td>
             </tr>
+                        <?php echo $pro_general; ?>
+
             <tr>
                 <th scope="row"><label for="blogdescription">Delete all data on uninstall</label></th>
                 <td>
                 <label class="switch">
-                <input type="checkbox" name="uninstall_data" class="uninstall_data" <?php echo (isset($setting_data['uninstall_data']) && $setting_data['uninstall_data'] == 'yes') ? 'checked' : ''; ?> value="<?php echo (isset($setting_data['uninstall_data'])) ? $setting_data['uninstall_data'] : '' ?>">
+                <input type="checkbox" name="uninstall_data" class="uninstall_data" <?php echo (isset($setting_data['uninstall_data']) && $setting_data['uninstall_data'] == 'on') ? 'checked' : ''; ?> value="<?php echo (isset($setting_data['uninstall_data'])) ? $setting_data['uninstall_data'] : '' ?>">
                 <span class="slider round"></span>
                     </label>
                 </td>
@@ -94,13 +100,16 @@ $layout = [
     <p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="Save Changes"></p>
 
 </form>
+
 <script>
-(function ($) {
+    (function ($) {
+
     $('.uninstall_data').on('click',function(){
-       var check = $(this).prop('checked');
-       if(check){
-           $(this).val('yes');
-       }
-    })
-})(jQuery);
+           var check = $(this).prop('checked');
+           if(check){
+               $(this).val('on');
+           }
+        });
+    })(jQuery);
+
 </script>

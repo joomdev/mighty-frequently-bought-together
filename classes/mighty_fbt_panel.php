@@ -21,12 +21,17 @@ class Mighty_panel
         // Fire before the WC_Form_Handler::add_to_cart_action callback.
         add_action( 'wp_loaded', [ $this, 'mighty_woocommerce_add_multiple_products_to_cart' ], 15 );
 
-        
+        add_action( 'admin_notices', [ $this, 'activate_licence_notice' ], 20 );
     }
    
-    
     public function mighty_enqueue_scripts( $hook )
     {
+        if( strpos($hook, self::PLG_SLUG) !== false ) {
+            // ⚠ Proceed with caution
+        } else {
+            return;
+        }
+
         wp_enqueue_style(
             'mighty-style',
             MIGHTY_FBT_PLG_URL . 'assets/css/style.css',
@@ -36,8 +41,13 @@ class Mighty_panel
 
         wp_enqueue_style( 'wp-color-picker' );
 
-        wp_enqueue_script( 'mighty-color-script', MIGHTY_FBT_PLG_URL . 'assets/js/color-script.js', array( 'wp-color-picker' ), MIGHTY_FBT_VERSION, true );
-        
+        wp_enqueue_script( 
+        'mighty-color-script',
+        MIGHTY_FBT_PLG_URL . 
+        'assets/js/color-script.js',
+        array( 'wp-color-picker' ), 
+        MIGHTY_FBT_VERSION, true 
+        );
 }
 
     public function add_fbt_menu()
@@ -49,7 +59,6 @@ class Mighty_panel
             'mighty-fbt-home',
             [$this, 'generate_homepage'],
             MIGHTY_FBT_PLG_URL . 'assets/images/mighty-themes-logo.svg'
-
             
         );
 
@@ -69,31 +78,57 @@ class Mighty_panel
             __('Label & Styling', 'mighty-fbt'),
             'manage_options',
             'mighty-fbt-labelstyle',
-            [$this, 'generate_labelstylepage']
+            [ $this, 'generate_labelstylepage' ]
         );
+
+        (!defined('MIGHTY_FBT_PRO') || (constant('MIGHTY_FBT_PRO') == '')) ?
+
+        add_submenu_page(
+            'mighty-fbt-home',
+            __( 'Go Pro', 'mighty-fbt' ),
+            __( 'Go Pro', 'mighty-fbt' ),
+            'manage_options',
+            'mighty-fbt-go-pro',
+            [ $this, 'generate_mighty_fbt_go_pro' ]
+        ) : '';
+
+    }
+
+    public function generate_mighty_fbt_go_pro()
+    {
+
+        require_once MIGHTY_FBT_DIR_PATH . 'includes/mighty_fbt_header.php';
+
+        require_once MIGHTY_FBT_DIR_PATH  . 'panel/pages/mighty_go_pro.php';  
+
     }
 
     public function generate_homepage()
     {
         $setting_data = get_option('mighty_fbt_setting_data');
+
         if ( isset(  $_POST['submit'] ) ) {
+
             $data = [
+
                 'version' => MIGHTY_FBT_VERSION,
                 'pricing_method' => sanitize_text_field($_POST['pricing_method']),
                 'default_product' => sanitize_text_field($_POST['default_product']),
                 'box_position' => sanitize_text_field($_POST['box_position']),
                 'layout' => sanitize_text_field($_POST['layout']),
-                'uninstall_data' =>sanitize_text_field($_POST['uninstall_data'])
-            ];
+                'uninstall_data' => ( isset($_POST['uninstall_data']) ? sanitize_text_field($_POST['uninstall_data']) : 'off')
 
+            ];
+    
             update_option( 'mighty_fbt_setting_data', $data );
+
             $setting_data = $data;
         }
-
 
         include_once MIGHTY_FBT_DIR_PATH . 'includes/mighty_fbt_header.php';
 
         require_once MIGHTY_FBT_DIR_PATH  . 'panel/pages/mighty_fbt_general.php';
+
     }
 
     public function generate_labelstylepage()
@@ -112,23 +147,23 @@ class Mighty_panel
                 'button_hover_color' => sanitize_text_field($_POST['button_hover_color']),
                 'button_text_hover_color' => sanitize_text_field($_POST['button_text_hover_color']),
             ];
-          
+            
             update_option( 'mighty_fbt_label-style_data', $data );
+
             $styling = $data;
         }
-
-
-        include_once MIGHTY_FBT_DIR_PATH . 'includes/mighty_fbt_header.php';
         
-        require_once MIGHTY_FBT_DIR_PATH  . 'panel/pages/mighty_fbt_labelstyle.php';
+        include_once MIGHTY_FBT_DIR_PATH . 'includes/mighty_fbt_header.php';
+
+        require_once MIGHTY_FBT_DIR_PATH . 'panel/pages/mighty_fbt_labelstyle.php';
     }
 
     /**
      * Enables adding multiple product in the cart
-     * https://dsgnwrks.pro/snippets/woocommerce-allow-adding-multiple-products-to-the-cart-via-the-add-to-cart-query-string/
      * @since   1.0.0
      */
     function mighty_woocommerce_add_multiple_products_to_cart( $url = false ) {
+     
         // Make sure WC is installed, and add-to-cart qauery arg exists, and contains at least one comma.
         if ( ! class_exists( 'WC_Form_Handler' ) || empty( $_REQUEST['add-to-cart'] ) || false === strpos( $_REQUEST['add-to-cart'], ',' ) ) {
             return;
@@ -140,7 +175,8 @@ class Mighty_panel
         $product_ids = explode( ',', sanitize_text_field($_REQUEST['add-to-cart']) );
         $count       = count( $product_ids );
         $number      = 0;
-    
+
+
         foreach ( $product_ids as $id_and_quantity ) {
             // Check for quantities defined in curie notation (<product_id>:<product_quantity>)
             // https://dsgnwrks.pro/snippets/woocommerce-allow-adding-multiple-products-to-the-cart-via-the-add-to-cart-query-string/#comment-12236
@@ -168,11 +204,11 @@ class Mighty_panel
     
             // Variable product handling
             if ( 'variable' === $add_to_cart_handler ) {
-                $this->woo_hack_invoke_private_method( 'WC_Form_Handler', 'add_to_cart_handler_variable', $product_id );
+                $this->mighty_woo_hack_invoke_private_method( 'WC_Form_Handler', 'add_to_cart_handler_variable', $product_id );
     
             // Grouped Products
             } elseif ( 'grouped' === $add_to_cart_handler ) {
-                $this->woo_hack_invoke_private_method( 'WC_Form_Handler', 'add_to_cart_handler_grouped', $product_id );
+                $this->mighty_woo_hack_invoke_private_method( 'WC_Form_Handler', 'add_to_cart_handler_grouped', $product_id );
     
             // Custom Handler
             } elseif ( has_action( 'woocommerce_add_to_cart_handler_' . $add_to_cart_handler ) ){
@@ -207,17 +243,75 @@ class Mighty_panel
         $args = array_merge( array( $reflection ), $args );
         return call_user_func_array( array( $method, 'invoke' ), $args );
     }
-
-     
+   
     function redirect_after_add_to_cart( $url ) {
+       
         $site_url = site_url();
         $str =  add_query_arg('/','add-to-cart');
         $new =  explode("?",$str) ;
         $new_url = $url . $new[0];
-      
-      
+
         return $new_url;
+   
     }
+
+    public function activate_licence_notice() {
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+
+		$licenseKey = get_option( 'mighty_fbt_licence_key' );
+
+		if( empty( $licenseKey ) || get_option( 'mighty_fbt_licence_status' ) != true ) {
+
+			$message = sprintf(
+				/* translators: 1: Plugin name 2: WooCommerce */
+				esc_html__( '%1$s requires %2$s to be installed and activated.', 'mighty-fbt' ),
+				'<strong>' . esc_html__( 'Mighty Frequently Bought Together', 'mighty-fbt' ) . '</strong>',
+				'<strong>' . esc_html__( 'WooCommerce', 'mighty-fbt' ) . '</strong>'
+			);
+
+
+			$html = '
+				<style>
+				  .mighty-notice {
+					display: flex;
+					align-items: center;
+					padding: 10px;
+				  }
+
+				  .mighty-notice .notice-content .heading {
+					margin: 5px 0;
+				  }
+
+				  .mighty-notice .brand .logo {
+					width: 65px;
+				  }
+				  
+				  .mighty-notice .notice-content {
+					margin-left: 15px;
+				  }
+				</style>
+				<div class="mighty-notice">
+			
+					<div class="brand">
+						<img class="logo" src="' . MIGHTY_FBT_PLG_URL . 'assets/images/mighty-fbt-logo.png" alt="Mighty frequently bought together logo">
+					</div>
+			
+					<div class="notice-content">
+						<h3 class="heading">Welcome to Mighty Frequently Bought Together!</h3>
+						<p>Please activate your license to get feature updates and premium support.</p>
+						<a href="' . admin_url('admin.php?page=mighty-license') .'" class="button"><span>Activate Licence</span></a>
+					</div>
+			
+				</div>
+			';
+	
+			printf( '<div class="notice notice-warning is-dismissible">%1$s</div>', $html );
+
+		}
+	}
 }
 
 new Mighty_panel();

@@ -1,9 +1,11 @@
 <?php
 
+namespace MightyFBT;
+
 /**
  * Plugin Name: Mighty Frequently Bought Together
  * Description: Give more choices to users when purchasing your product by showing <strong>Frequently Bought Together</strong> products.
- * Plugin URI: https://mightythemes.com/products/mighty-frequently-bought-together/
+ * Plugin URI: https://mightythemes.com/products/pro-mighty-frequently-bought-together/
  * Version:     1.0.0
  * Author:      MightyThemes
  * Author URI:  https://mightythemes.com/
@@ -13,6 +15,7 @@
  */
 
 use MightyFBT\Classes\MightyHelper;
+use MightyFBT\Classes\MightyProduct;
 
 if (!defined('ABSPATH')) exit; // Exit if accessed directly
 
@@ -23,7 +26,9 @@ define( 'MIGHTY_FBT_PLG_BASENAME', plugin_basename( __FILE__ ) );
 
 class Mighty_fbt
 {
+   
     public function __construct()
+
     {
         add_action('admin_enqueue_scripts', [$this, 'mighty_enqueue_scripts']);
 
@@ -33,7 +38,7 @@ class Mighty_fbt
         $this->update_default_values();
 
         add_filter('woocommerce_product_data_tabs', array($this, 'add_mighty_fbt'), 10, 1);
-
+       
         add_action('woocommerce_product_data_panels', array($this, 'add_mighty_fbt_panel'));
 
         $product_types = [
@@ -48,6 +53,35 @@ class Mighty_fbt
         }
 
         include MIGHTY_FBT_DIR_PATH . 'panel/template/mighty_fbt_get_data.php';
+
+        add_filter( 'plugin_action_links_'. MIGHTY_FBT_PLG_BASENAME , [ $this, 'plugin_action_links' ] );
+
+        add_filter( 'plugin_row_meta', [ $this, 'plugin_meta_links' ], 10, 2 );
+
+    }
+
+    public function plugin_action_links($links){
+
+        $settings_link = sprintf( '<a href="%1$s">%2$s</a>', admin_url( 'admin.php?page=mighty-fbt-home' ), __( 'Settings', 'mighty-fbt' ) );
+       
+		array_unshift( $links, $settings_link );
+
+		return $links;
+
+    }
+
+    public function plugin_meta_links($links,$file){
+
+        $currentScreen = get_current_screen();
+		
+		if( $currentScreen->id === "plugins" && MIGHTY_FBT_PLG_BASENAME == $file ) {
+
+			$links[] = '<a target="_blank" href="#">' . esc_html__( 'Documentation', 'mighty-fbt' ) . '</a>';
+			$links[] = '<a target="_blank" href="https://mightythemes.com/support/c/mighty-frequently-bought-together-for-woocommerce/">' . esc_html__( 'Support', 'mighty-fbt' ) . '</a>';
+			
+		}
+
+		return $links;
     }
 
     public function mighty_enqueue_scripts()
@@ -59,7 +93,7 @@ class Mighty_fbt
             MIGHTY_FBT_VERSION,
             true // in footer?
         );
-        
+
         wp_enqueue_script(
             'mighty-product-form',
             MIGHTY_FBT_PLG_URL . 'assets/js/product_form.js',
@@ -74,77 +108,106 @@ class Mighty_fbt
             null,
             MIGHTY_FBT_VERSION
         );
+        
     }
 
     public function init()
     {
         require_once MIGHTY_FBT_DIR_PATH . 'classes/mighty_fbt_panel.php';
+
     }
 
     // set default value for setting and styling on activation
     public function update_default_values()
+
     {       
         include MIGHTY_FBT_DIR_PATH . 'classes/mighty_fbt_helper.php';
 
         MightyHelper::updateDefaultSettings();
         MightyHelper::updateDefaultStyling();
+
     }
 
     // show frequently bought together tab in product tab
     public function add_mighty_fbt($tabs)
     {
+
         $tabs['add_mighty_fbt'] = array(
             'label'  => __('Mighty Frequently Bought Together', 'mighty-fbt'),
             'target' => 'mighty_wfbt_data_option',
 
         );
+
         return $tabs;
+
     }
 
     // show frequently bought form on click on product tab
-    public function add_mighty_fbt_panel()
+    public  function add_mighty_fbt_panel()
     {
         $product_data = get_option('mighty_fbt_save_data');
+
         $page_id = get_the_ID();
+       
         if( isset( $product_data[$page_id] ) ) {
-            $current_product_data = $product_data[$page_id];
+
+            $current_product_data = $product_data[ $page_id ];
+
         }
         require_once MIGHTY_FBT_DIR_PATH . 'panel/pages/mighty_fbt_product.php';
+       
     }
 
     // save data in wp_option of the form of frequently bought together
     function mighty_fbt_save_data()
     {
         $page_id = get_the_ID();
+
         $data['product_type'] = sanitize_text_field($_POST['product_type']);
+
         if ($data['product_type'] == 'custom_selection') {
-            $data['selected_products'] = wc_clean($_POST['selected_products']);
+
+            $data['selected_products'] = $_POST['selected_products'];
         }
-        $data['show_product'] = sanitize_text_field($_POST['show_product']);
-        $data['num_of_product'] = sanitize_text_field($_POST['num_of_product']);
-        $get_data = get_option('mighty_fbt_save_data');
+        $data['show_product'] = sanitize_text_field( $_POST['show_product'] );
         
+        ($data['show_product'] == 'random_limited_products') ? $data['num_of_product'] = sanitize_text_field( $_POST['num_of_product'] ) : '';
+
+        $get_data = get_option('mighty_fbt_save_data');
+
         if (!empty($get_data)) {
-            if (array_key_exists($page_id, $get_data)) {
-                unset($get_data[$page_id]);
+
+            if ( array_key_exists( $page_id , $get_data ) ) {
+
+                unset( $get_data[$page_id] );
+
                 $mighty_fbt_data = array(
                     $page_id => $data,
                 );
+
                 $mighty_fbt_data = $get_data + $mighty_fbt_data;
-                update_option('mighty_fbt_save_data', $mighty_fbt_data);
+
+                update_option( 'mighty_fbt_save_data' , $mighty_fbt_data );
+
             } else {
+
                 $mighty_fbt_data = array(
                     $page_id => $data,
                 );
+
                 $mighty_fbt_data = $get_data + $mighty_fbt_data;
-                update_option('mighty_fbt_save_data', $mighty_fbt_data);
+               
+                update_option( 'mighty_fbt_save_data' , $mighty_fbt_data );
             }
         } else {
+
             $mighty_fbt_data = array(
                 $page_id => $data,
             );
-            update_option('mighty_fbt_save_data', $mighty_fbt_data);
+            update_option( 'mighty_fbt_save_data' , $mighty_fbt_data );
+
         }
+     
     }
 }
 

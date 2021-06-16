@@ -14,14 +14,15 @@ if (!defined('ABSPATH')) {
                     <p class="description" id="tagline-description">Title shown on "Frequently Bought Together" box.</p>
                 </td>
             </tr>
+            
             <tr>
-                <th> <label for="total_label">Total Label</label></th>
+                <th> <label for="total_label"><?php echo ( defined('MIGHTY_FBT_PRO') && constant('MIGHTY_FBT_PRO')) ? 'Total label for multiple products' : 'Total Label';?></label></th>
                 <td> <input name="total_label" type="text" id="total_label" value="<?php echo $styling['total_label']; ?>" class="regular-text code">
                     <p class="description" id="tagline-description">This is the label shown for total price label</p>
                 </td>
             </tr>
             <tr>
-                <th scope="row"><label for="bottom_label">Button label</label></th>
+                <th scope="row"><label for="bottom_label"><?php echo ( defined('MIGHTY_FBT_PRO') && constant('MIGHTY_FBT_PRO')) ? 'Button label for multiple products' : 'Button label';?></label></th>
                 <td><input name="button_label" type="text" id="button_label" value="<?php echo $styling['button_label']; ?>" class="regular-text code">
                     <p class="description" id="tagline-description">This is the label shown for "Add to cart" button.</p>
                 </td>

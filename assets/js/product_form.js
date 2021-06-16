@@ -16,6 +16,7 @@ jQuery(function( $ ) {
         $('.no_of_product_rand').css("display", "none");
     }
 
+
     $('.product_type').on('change', function(e) {
         var pro_type = $('#product_type').val();
         if (pro_type == 'custom_selection') {
