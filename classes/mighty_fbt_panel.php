@@ -21,7 +21,7 @@ class Mighty_panel
         // Fire before the WC_Form_Handler::add_to_cart_action callback.
         add_action( 'wp_loaded', [ $this, 'mighty_woocommerce_add_multiple_products_to_cart' ], 15 );
 
-        add_action( 'admin_notices', [ $this, 'activate_licence_notice' ], 20 );
+        add_action( 'admin_notices', [ $this, 'free_go_pro_notice' ], 20 );
     }
    
     public function mighty_enqueue_scripts( $hook )
@@ -255,24 +255,11 @@ class Mighty_panel
    
     }
 
-    public function activate_licence_notice() {
+    public function free_go_pro_notice() {
 
 		if ( ! current_user_can( 'manage_options' ) ) {
 			return;
-		}
-
-		$licenseKey = get_option( 'mighty_fbt_licence_key' );
-
-		if( empty( $licenseKey ) || get_option( 'mighty_fbt_licence_status' ) != true ) {
-
-			$message = sprintf(
-				/* translators: 1: Plugin name 2: WooCommerce */
-				esc_html__( '%1$s requires %2$s to be installed and activated.', 'mighty-fbt' ),
-				'<strong>' . esc_html__( 'Mighty Frequently Bought Together', 'mighty-fbt' ) . '</strong>',
-				'<strong>' . esc_html__( 'WooCommerce', 'mighty-fbt' ) . '</strong>'
-			);
-
-
+        }
 			$html = '
 				<style>
 				  .mighty-notice {
@@ -301,8 +288,8 @@ class Mighty_panel
 			
 					<div class="notice-content">
 						<h3 class="heading">Welcome to Mighty Frequently Bought Together!</h3>
-						<p>Please activate your license to get feature updates and premium support.</p>
-						<a href="' . admin_url('admin.php?page=mighty-license') .'" class="button"><span>Activate Licence</span></a>
+						<p>Upgrade to Mighty FBT Pro and get access to the premium features and increase your store sales.</p>
+						<a href=" https://mightythemes.com/products/mighty-frequently-bought-together " class="button"><span>Upgrade To Pro</span></a>
 					</div>
 			
 				</div>
@@ -310,7 +297,6 @@ class Mighty_panel
 	
 			printf( '<div class="notice notice-warning is-dismissible">%1$s</div>', $html );
 
-		}
 	}
 }
 

@@ -45,7 +45,8 @@ if (!defined('ABSPATH')) {
     <?php } ?>
      
      <div class="docs-link">
-        <a target="_blank" href="#"><span class="dashicons dashicons-media-document"></span> Documentation</a>
-        <a target="_blank" href="#"><span class="dashicons dashicons-editor-help"></span> Help</a>
+        <a target="_blank" href="https://mightythemes.com/docs/docs-category/mighty-fbt/"><span class="dashicons dashicons-media-document"></span> Documentation</a>
+        <a target="_blank" href="https://mightythemes.com/support/c/mighty-frequently-bought-together-for-woocommerce/"><span class="dashicons dashicons-editor-help"></span> Help</a>
     </div>
+    
 </ul>

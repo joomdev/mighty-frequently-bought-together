@@ -76,7 +76,7 @@ class Mighty_fbt
 		
 		if( $currentScreen->id === "plugins" && MIGHTY_FBT_PLG_BASENAME == $file ) {
 
-			$links[] = '<a target="_blank" href="#">' . esc_html__( 'Documentation', 'mighty-fbt' ) . '</a>';
+			$links[] = '<a target="_blank" href="https://mightythemes.com/docs/docs-category/mighty-fbt/">' . esc_html__( 'Documentation', 'mighty-fbt' ) . '</a>';
 			$links[] = '<a target="_blank" href="https://mightythemes.com/support/c/mighty-frequently-bought-together-for-woocommerce/">' . esc_html__( 'Support', 'mighty-fbt' ) . '</a>';
 			
 		}
