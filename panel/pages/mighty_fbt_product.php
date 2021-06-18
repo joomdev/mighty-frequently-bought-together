@@ -46,6 +46,7 @@ $pro_product = '';
                                 </option>
                             <?php } ?>
                         </select>
+                        <p class="description" id="tagline-description">Choose which products you want to use as frequently bought products</p>
                     </td>
                 </tr>
 
@@ -71,6 +72,7 @@ $pro_product = '';
                                 <?php } ?>
                             </select>
                         </div>
+                        <p class="description" id="tagline-description">Select products for "Frequently bought together" group</p>
                     </td>
                 </tr>
 
@@ -88,7 +90,7 @@ $pro_product = '';
 
                         <?php } ?>
                         <?php }  ?>
-                        
+                        <p class="description" id="tagline-description" style="display: block;">Choose whether to show all products or set a limited number of products that will show randomly</p>
 
                     </td>
                 </tr>
@@ -99,8 +101,8 @@ $pro_product = '';
 
                     <td>
 
-                        <input type="number" value="<?php echo (isset($current_product_data['num_of_product']) ? $current_product_data['num_of_product'] : '2'); ?>" name="num_of_product" id="" class="num_of_product">
-
+                        <input style="width: 12%;" type="number" value="<?php echo (isset($current_product_data['num_of_product']) ? $current_product_data['num_of_product'] : '2'); ?>" name="num_of_product" id="" class="num_of_product">
+                        <p class="description" id="tagline-description" >Set how many products to show excluding current one for "Frequently bought together" group	</p>
                     </td>
 
                 </tr>

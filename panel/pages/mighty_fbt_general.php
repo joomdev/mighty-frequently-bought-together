@@ -41,7 +41,7 @@ $pro_general = '';
 
                         <?php } ?>
                     </select>
-                    <p class="description" id="tagline-description">Calculate prices from the sale price (default) or regular price of products.</p>
+                    <p class="description" id="tagline-description">Calculate prices either from the sale price or the regular price of products.</p>
                 </td>
             </tr>
 
@@ -54,7 +54,7 @@ $pro_general = '';
 
                         <?php } ?>
                     </select>
-                    <p class="description" id="tagline-description">Default products when don't specified any products.</p>
+                    <p class="description" id="tagline-description">Select what products you want to display if there nothing is specified on the product level.</p>
                 </td>
             </tr>
             <tr>
@@ -67,7 +67,7 @@ $pro_general = '';
 
                         <?php } ?>
                     </select>
-                    <p class="description" id="tagline-description">Choose the position to show the products list.</p>
+                    <p class="description" id="tagline-description">Choose the position where you want to place the frequently bought together box. </p>
                 </td>
             </tr>
 
@@ -81,6 +81,7 @@ $pro_general = '';
                         <?php } ?>
 
                     </select>
+                    <p class="description" id="tagline-description">Select which layout you want to set for the frequently bought together products and boxes. </p>
                 </td>
             </tr>
                         <?php echo $pro_general; ?>
@@ -92,6 +93,7 @@ $pro_general = '';
                 <input type="checkbox" name="uninstall_data" class="uninstall_data" <?php echo (isset($setting_data['uninstall_data']) && $setting_data['uninstall_data'] == 'on') ? 'checked' : ''; ?> value="<?php echo (isset($setting_data['uninstall_data'])) ? $setting_data['uninstall_data'] : '' ?>">
                 <span class="slider round"></span>
                     </label>
+                    <p class="description" id="tagline-description"> If you enable this option and uninstall the Mighty Frequently Bought Together plugin, all the data of this plugin will be deleted from the database.	</p>
                 </td>
             </tr>
         </tbody>
