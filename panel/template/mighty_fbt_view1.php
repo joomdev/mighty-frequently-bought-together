@@ -6,12 +6,25 @@ if (isset($no_of_alternate_product) && $no_of_alternate_product >= 1) {
    $fbtProductIds[] = $product->get_id();
 
    $current_product = isset($current_product) ? $current_product : '';
-
 ?>
 
    <div class="mt-fbt-form mt-fbt-form-v1">
 
       <h3 class="mt-fbt-heading"><?php echo esc_html($label_style_data['box_title']); ?></h3>
+
+      <?php if ( defined('MIGHTY_FBT_PRO') && constant('MIGHTY_FBT_PRO')) { ?>
+
+         <input type="hidden" class="product_checked" name="" value="<?php echo isset($current_product['product_checked']) ? $current_product['product_checked'] : '';?>">
+         <input type="hidden" class="no_of_product" name="" value="<?php echo count($alternates_products_rand) + 1;?>">
+         <?php if(isset($current_product['additional_text']) && !empty($current_product['additional_text'])){?>
+
+         <div class="mt-fbt-additional-text">
+            <p><?php echo (isset($current_product['additional_text']) ? esc_html($current_product['additional_text']) : ''); ?></p>
+         </div>
+
+         <?php }?>
+
+      <?php } ?>
 
       <div class="mt-fbt-top-box">
 
@@ -41,7 +54,7 @@ if (isset($no_of_alternate_product) && $no_of_alternate_product >= 1) {
                $image = wp_get_attachment_image_url($alternate_products->get_image_id());
                if(empty($image)){
                   $image = wc_placeholder_img_src();
-              }
+               }
                }else{
                   $image = wc_placeholder_img_src();
                }
@@ -71,6 +84,17 @@ if (isset($no_of_alternate_product) && $no_of_alternate_product >= 1) {
             <div class="mt-fbt-total-price">
 
                <?php $total_label['total_label'] = esc_html($label_style_data['total_label']); ?>
+
+               <?php if ( defined('MIGHTY_FBT_PRO') && constant('MIGHTY_FBT_PRO')) {
+
+                  if (!class_exists('mighty_pro_view')) {
+                     require  MIGHTY_FBT_DIR_PATH . 'pro/panel/template/pro_view1.php';
+                  }
+
+                  $label = new mighty_pro_view();
+                  $total_label = $label->button_label($label_style_data, $alternates_products_rand);
+
+               } ?>
 
                <span class="mt-fbt-price-label">
                   <?php echo $total_label['total_label']; ?>
@@ -107,6 +131,21 @@ if (isset($no_of_alternate_product) && $no_of_alternate_product >= 1) {
                     number_format($current_product_totalprice, 2) . '
                   </span>'; ?>
 
+               <?php if ( defined('MIGHTY_FBT_PRO') && constant('MIGHTY_FBT_PRO')) {
+
+                  if (!class_exists('mighty_pro_view')) {
+                     require  MIGHTY_FBT_DIR_PATH . 'pro/panel/template/pro_view1.php';
+                  }
+
+                  $pro_data=[ 'no_of_alternate_product'=>$no_of_alternate_product, 'current_product_totalprice'=>$current_product_totalprice, 'curreny_symbol'=>$curreny_symbol, 'layout'=>$setting_data['layout'], 
+                  'highlight_discount' => !empty($setting_data['highlight_discount']) ? $setting_data['highlight_discount'] : '',
+                  'current_product'=>$current_product ];
+
+                  $new_price = new mighty_pro_view();
+
+                 $price = $new_price->price($pro_data);
+               }  ?>
+
                <?php echo $price; ?>
 
             </div>
@@ -116,6 +155,17 @@ if (isset($no_of_alternate_product) && $no_of_alternate_product >= 1) {
                <a class="mt-fbt-button" href="<?php echo esc_url_raw(add_query_arg('add-to-cart', implode(',', $fbtProductIds))); ?>">
 
                   <?php $button_label['button_label'] = esc_html($label_style_data['button_label']); ?>
+
+                  <?php
+
+                  if ( defined('MIGHTY_FBT_PRO') && constant('MIGHTY_FBT_PRO')) {
+                     if (!class_exists('mighty_pro_view')) {
+                        require  MIGHTY_FBT_DIR_PATH . 'pro/panel/template/pro_view1.php';
+                     }
+
+                     $button_label = new mighty_pro_view();
+                     $button_label = $button_label->button_label($label_style_data, $alternates_products_rand);
+                  }  ?>
 
                   <?php echo $button_label['button_label']; ?>
 

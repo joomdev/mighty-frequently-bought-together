@@ -30,6 +30,18 @@ class MightyHelper
                 'layout' => 'view_1',
                 'uninstall_data' =>'on'
             ];
+
+            if(constant('MIGHTY_FBT_PRO') && defined('MIGHTY_FBT_PRO')){
+
+                if (!class_exists('mighty_pro_view')) {
+
+                require MIGHTY_FBT_DIR_PATH  . 'pro/classes/pro_helper.php';
+
+                }
+
+                $setting_data = array_merge($setting_data,$pro_setting_data);
+
+            }
            
             update_option('mighty_fbt_setting_data', $setting_data);
         }
@@ -60,6 +72,18 @@ class MightyHelper
                 'button_text_hover_color' => '#fff',
             ];
 
+            if(constant('MIGHTY_FBT_PRO') && defined('MIGHTY_FBT_PRO')){
+
+                if (!class_exists('mighty_pro_view')) {
+
+                require MIGHTY_FBT_DIR_PATH  . 'pro/classes/pro_helper.php';
+
+                }
+              
+                $styling_data = array_merge($styling_data,$pro_styling_data);
+
+            }
+           
             update_option('mighty_fbt_label-style_data', $styling_data);
         }
     }

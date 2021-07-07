@@ -20,8 +20,14 @@ class Mighty_panel
 
         // Fire before the WC_Form_Handler::add_to_cart_action callback.
         add_action( 'wp_loaded', [ $this, 'mighty_woocommerce_add_multiple_products_to_cart' ], 15 );
+        if( defined('MIGHTY_FBT_PRO') && constant('MIGHTY_FBT_PRO')){
+        add_action( 'admin_notices', [ $this, 'pro_activate_licence_notice' ], 20 );
+        }else{
+            add_action( 'admin_notices', [ $this, 'free_go_pro_notice' ], 20 );
 
-        add_action( 'admin_notices', [ $this, 'free_go_pro_notice' ], 20 );
+        }
+
+        
     }
    
     public function mighty_enqueue_scripts( $hook )
@@ -48,6 +54,16 @@ class Mighty_panel
         array( 'wp-color-picker' ), 
         MIGHTY_FBT_VERSION, true 
         );
+        
+        ( defined('MIGHTY_FBT_PRO') && constant('MIGHTY_FBT_PRO')) ?
+
+        wp_enqueue_script(
+            'mighty_fbt_toggle_script',
+            MIGHTY_FBT_PLG_URL . 'pro/assets/js/toggle.js',
+            [ 'jquery' ],
+            MIGHTY_FBT_VERSION,
+            true
+        ) : '';
 }
 
     public function add_fbt_menu()
@@ -92,6 +108,19 @@ class Mighty_panel
             [ $this, 'generate_mighty_fbt_go_pro' ]
         ) : '';
 
+        if( defined('MIGHTY_FBT_PRO') && constant('MIGHTY_FBT_PRO')){
+
+            if(!class_exists('Mighty_pro_panel')){
+
+                        require MIGHTY_FBT_DIR_PATH  . 'pro/classes/pro_panel.php';
+
+            }
+
+            $data = new Mighty_pro_panel();
+            $submenu = $data->pro_submenu();
+           
+        } 
+
     }
 
     public function generate_mighty_fbt_go_pro()
@@ -119,6 +148,20 @@ class Mighty_panel
                 'uninstall_data' => ( isset($_POST['uninstall_data']) ? sanitize_text_field($_POST['uninstall_data']) : 'off')
 
             ];
+
+            if( defined('MIGHTY_FBT_PRO') && constant('MIGHTY_FBT_PRO')){
+
+                if(!class_exists('Mighty_pro_panel')){
+
+                    require MIGHTY_FBT_DIR_PATH  . 'pro/classes/pro_panel.php';
+
+                }  
+
+                $pro_general = new Mighty_pro_panel();
+                $pro_data = $pro_general->pro_general($data);
+                $data = array_merge($data,$pro_data);
+
+            }
     
             update_option( 'mighty_fbt_setting_data', $data );
 
@@ -147,6 +190,20 @@ class Mighty_panel
                 'button_hover_color' => sanitize_text_field($_POST['button_hover_color']),
                 'button_text_hover_color' => sanitize_text_field($_POST['button_text_hover_color']),
             ];
+
+            if( defined('MIGHTY_FBT_PRO') && constant('MIGHTY_FBT_PRO')){
+
+                if(!class_exists('Mighty_pro_panel')){
+
+                    require MIGHTY_FBT_DIR_PATH  . 'pro/classes/pro_panel.php';
+
+                }
+
+                $pro_style = new Mighty_pro_panel();
+                $pro_data = $pro_style->pro_style($data);
+                $data = array_merge($data,$pro_data);
+
+            }
             
             update_option( 'mighty_fbt_label-style_data', $data );
 
@@ -251,10 +308,90 @@ class Mighty_panel
         $new =  explode("?",$str) ;
         $new_url = $url . $new[0];
 
+        if( defined('MIGHTY_FBT_PRO') && constant('MIGHTY_FBT_PRO')){
+
+            if(!class_exists('Mighty_pro_panel')){
+
+                    require MIGHTY_FBT_DIR_PATH  . 'pro/classes/pro_panel.php';
+
+                }
+
+            $data = new Mighty_pro_panel();
+
+            $checkout_url = $data->redirect_to_checkout($new_url);
+
+            if( $checkout_url ) {
+
+               return $checkout_url;
+
+           } else {
+
+                return $new_url;
+
+           }
+        } 
+
         return $new_url;
    
     }
 
+    public function pro_activate_licence_notice() {
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+
+		$licenseKey = get_option( 'mighty_fbt_licence_key' );
+
+		if( empty( $licenseKey ) || get_option( 'mighty_fbt_licence_status' ) != true ) {
+
+			$message = sprintf(
+				/* translators: 1: Plugin name 2: WooCommerce */
+				esc_html__( '%1$s requires %2$s to be installed and activated.', 'mighty-fbt' ),
+				'<strong>' . esc_html__( 'Mighty Frequently Bought Together', 'mighty-fbt' ) . '</strong>',
+				'<strong>' . esc_html__( 'WooCommerce', 'mighty-fbt' ) . '</strong>'
+			);
+
+
+			$html = '
+				<style>
+				  .mighty-notice {
+					display: flex;
+					align-items: center;
+					padding: 10px;
+				  }
+
+				  .mighty-notice .notice-content .heading {
+					margin: 5px 0;
+				  }
+
+				  .mighty-notice .brand .logo {
+					width: 65px;
+				  }
+				  
+				  .mighty-notice .notice-content {
+					margin-left: 15px;
+				  }
+				</style>
+				<div class="mighty-notice">
+			
+					<div class="brand">
+						<img class="logo" src="' . MIGHTY_FBT_PLG_URL . 'assets/images/mighty-fbt-logo.png" alt="Mighty frequently bought together logo">
+					</div>
+			
+					<div class="notice-content">
+						<h3 class="heading">Welcome to Mighty Frequently Bought Together!</h3>
+						<p>Please activate your license to get feature updates and premium support.</p>
+						<a href="' . admin_url('admin.php?page=mighty-license') .'" class="button"><span>Activate Licence</span></a>
+					</div>
+			
+				</div>
+			';
+	
+			printf( '<div class="notice notice-warning is-dismissible">%1$s</div>', $html );
+
+		}
+	}
     public function free_go_pro_notice() {
 
 		if ( ! current_user_can( 'manage_options' ) ) {

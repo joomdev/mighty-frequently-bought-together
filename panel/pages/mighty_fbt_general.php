@@ -26,6 +26,7 @@ $layout = [
 
 $pro_general = '';
 
+( defined('MIGHTY_FBT_PRO') && constant('MIGHTY_FBT_PRO')) ? include_once MIGHTY_FBT_DIR_PATH . 'pro/panel/pages/pro_general.php' : ''; 
 ?>
 
 <form method="post" action="" novalidate="novalidate">

@@ -43,10 +43,13 @@ if (!defined('ABSPATH')) {
         </li>
 
     <?php } ?>
+
+    <?php if (defined('MIGHTY_FBT_PRO') && constant('MIGHTY_FBT_PRO')) { 
+        include_once MIGHTY_FBT_DIR_PATH . 'pro/includes/pro_header.php';
+     } ?>
      
      <div class="docs-link">
         <a target="_blank" href="https://mightythemes.com/docs/docs-category/mighty-fbt/"><span class="dashicons dashicons-media-document"></span> Documentation</a>
         <a target="_blank" href="https://mightythemes.com/support/c/mighty-frequently-bought-together-for-woocommerce/"><span class="dashicons dashicons-editor-help"></span> Help</a>
     </div>
-    
 </ul>

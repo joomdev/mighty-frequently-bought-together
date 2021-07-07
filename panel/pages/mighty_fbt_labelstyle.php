@@ -15,16 +15,19 @@ if (!defined('ABSPATH')) {
                 </td>
             </tr>
             
+            <?php   $isProEnable = ( defined('MIGHTY_FBT_PRO') && constant('MIGHTY_FBT_PRO')) ? 'pro/' : ''; ?>
+
+            <?php   ( defined('MIGHTY_FBT_PRO') && constant('MIGHTY_FBT_PRO')) ? require_once MIGHTY_FBT_DIR_PATH . $isProEnable . 'panel/pages/pro_labelstyle.php' : ''; ?>
             <tr>
                 <th> <label for="total_label"><?php echo ( defined('MIGHTY_FBT_PRO') && constant('MIGHTY_FBT_PRO')) ? 'Total label for multiple products' : 'Total Label';?></label></th>
                 <td> <input name="total_label" type="text" id="total_label" value="<?php echo $styling['total_label']; ?>" class="regular-text code">
-                    <p class="description" id="tagline-description">This is the text shown for total price label when single products have been checked.</p>
+                    <p class="description" id="tagline-description">The text entered in this field will be displayed for price when more than three products have been checked.</p>
                 </td>
             </tr>
             <tr>
-                <th scope="row"><label for="bottom_label"><?php echo ( defined('MIGHTY_FBT_PRO') && constant('MIGHTY_FBT_PRO')) ? 'Button label for multiple products' : 'Button label';?></label></th>
+                <th scope="row"><label for="bottom_label"><?php echo ( defined('MIGHTY_FBT_PRO') && constant('MIGHTY_FBT_PRO')) ? 'Button label for multiple products' : 'Button Label';?></label></th>
                 <td><input name="button_label" type="text" id="button_label" value="<?php echo $styling['button_label']; ?>" class="regular-text code">
-                    <p class="description" id="tagline-description">This is the label for Add to Cart button. The text entered here will be shown on the button when a single product has been checked.</p>
+                    <p class="description" id="tagline-description">This is the label for Add to Cart button. The text entered here will be shown on the button when more than three products have been checked.</p>
                 </td>
             </tr>
             <tr>

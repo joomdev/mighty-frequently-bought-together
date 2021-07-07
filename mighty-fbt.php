@@ -5,7 +5,7 @@ namespace MightyFBT;
 /**
  * Plugin Name: Mighty Frequently Bought Together
  * Description: Give more choices to users when purchasing your product by showing <strong>Frequently Bought Together</strong> products.
- * Plugin URI: https://mightythemes.com/products/pro-mighty-frequently-bought-together/
+ * Plugin URI: https://mightythemes.com/products/mighty-frequently-bought-together/
  * Version:     1.0.0
  * Author:      MightyThemes
  * Author URI:  https://mightythemes.com/
@@ -23,7 +23,13 @@ define( 'MIGHTY_FBT_VERSION', '1.0.0' );
 define( 'MIGHTY_FBT_DIR_PATH', plugin_dir_path( __FILE__ ) );
 define( 'MIGHTY_FBT_PLG_URL', plugin_dir_url( __FILE__ ) );
 define( 'MIGHTY_FBT_PLG_BASENAME', plugin_basename( __FILE__ ) );
-
+$file = file_exists(MIGHTY_FBT_DIR_PATH.'pro/classes/licencecontroller.php');
+if($file){
+    $is_file = true;
+}else{
+    $is_file = false;
+}
+define( 'MIGHTY_FBT_PRO', $is_file );
 class Mighty_fbt
 {
    
@@ -57,7 +63,7 @@ class Mighty_fbt
         add_filter( 'plugin_action_links_'. MIGHTY_FBT_PLG_BASENAME , [ $this, 'plugin_action_links' ] );
 
         add_filter( 'plugin_row_meta', [ $this, 'plugin_meta_links' ], 10, 2 );
-
+       
     }
 
     public function plugin_action_links($links){
@@ -102,6 +108,16 @@ class Mighty_fbt
             true // in footer?
         );
 
+        ( defined('MIGHTY_FBT_PRO') && constant('MIGHTY_FBT_PRO')) ?
+
+        wp_enqueue_script(
+            'mighty_pro-product-form',
+            MIGHTY_FBT_PLG_URL . 'pro/assets/js/pro_product_form.js',
+            [ 'jquery' ],
+            MIGHTY_FBT_VERSION,
+            true
+        ) : '';
+
         wp_enqueue_style(
             'mighty-select2',
             MIGHTY_FBT_PLG_URL . 'assets/css/select2.min.css',
@@ -114,7 +130,11 @@ class Mighty_fbt
     public function init()
     {
         require_once MIGHTY_FBT_DIR_PATH . 'classes/mighty_fbt_panel.php';
-
+        if( defined('MIGHTY_FBT_PRO') && constant('MIGHTY_FBT_PRO')){
+        require_once MIGHTY_FBT_DIR_PATH . 'pro/classes/licencecontroller.php';
+        require_once MIGHTY_FBT_DIR_PATH . 'pro/classes/mfbt_plugin_updater.php';
+        }
+        
     }
 
     // set default value for setting and styling on activation
@@ -172,6 +192,17 @@ class Mighty_fbt
         $data['show_product'] = sanitize_text_field( $_POST['show_product'] );
         
         ($data['show_product'] == 'random_limited_products') ? $data['num_of_product'] = sanitize_text_field( $_POST['num_of_product'] ) : '';
+        
+        if(defined('MIGHTY_FBT_PRO') && constant( 'MIGHTY_FBT_PRO' ) ){
+
+            if(!class_exists('Mighty_product')){
+
+            require MIGHTY_FBT_DIR_PATH . 'pro/panel/template/pro_product_form.php';
+        }
+        $data = MightyProduct::get_pro_product_data($data);
+
+
+        }
 
         $get_data = get_option('mighty_fbt_save_data');
 
@@ -212,3 +243,4 @@ class Mighty_fbt
 }
 
 new Mighty_fbt();
+

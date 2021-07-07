@@ -95,14 +95,14 @@
         if (check_current_product_id == 0) {
 
           var spend_amount = $(".spend_amount").val();
-          var no_of_product = $(".no_of_product").val();
           var total_quantity = $(".total_quantity").val();
+          var no_of_product = $(".no_of_product").val();
           var discount_type = $(".discount_type").val();
           var discount_value = $(".discount_value").val();
 
           if (
-            (spend_amount <= price && spend_amount != "") ||
-            (total_quantity <= checked_product && total_quantity != "" ) || ( (no_of_product == checked_product ) && typeof(discount_value) !== 'undefined' )  )
+            ((spend_amount <= price && spend_amount != "") ||
+            (total_quantity <= checked_product && total_quantity != "" )) || ( (no_of_product == checked_product ) && typeof(discount_value) !== 'undefined' )  )
            {
 
             if (discount_type == "flat") {
