@@ -78,8 +78,20 @@ Yes, you can customize the image size, button color, button hover color, button 
 **Can I set the quantity of each specific frequently bought together product?**
 No, you can’t set the quantity of each specific FBT product.
 
+== Screenshots ==
+
+1. Increase Sales And Average Order Value
+2. A Great Way To Get Sales For Outperforming Products
+3. Choose From Multiple Product  Recommendation Algorithms
+4. Control the Number of Products to Display
+5. Control The Size of Product Images
+6. 7. Customize The Look And Feel As Per Your Needs
+7. Easiest Way To Handle Linked Products
+8. Encourage To Make Purchase By Offering Discount
+9. Multiple Box Display Positions
+
 ## Have any questions or facing any issue?
-We are proud of our support team. If you are facing any issue or have any questions regarding Mighty Addons for Elementor, feel free to **[post us on our support forum](https://mightythemes.com/support/c/mighty-addons/)**. Our technical team would love to help you. 
+We are proud of our support team. If you are facing any issue or have any questions regarding Mighty Addons for Elementor, feel free to **[post us on our support forum](https://mightythemes.com/support/c/mighty-frequently-bought-together-for-woocommerce/)**. Our technical team would love to help you. 
 
 #### Developer? Want to contribute?
 
