@@ -1,7 +1,7 @@
 # Mighty Frequently Bought Together for WooCommerce
 Contributors: mightythemes1  
 Author URI: https://mightythemes.com  
-Plugin URI: https://mightythemes.com/products/mighty-frequently-bought-together  
+Plugin URI: https://mightythemes.com/product/mighty-frequently-bought-together  
 Requires at least: 4.0 or higher  
 Tested up to: 5.7  
 Requires PHP: 5.6  
@@ -22,7 +22,7 @@ Use Mighty Frequently Bought Together for WooCommerce to add recommendations for
 
 You can display the custom products or the related products in your frequently bought together section on your WooCommerce Website.
 
-Mighty WooCommerce Frequently Bought Together plugin got its advanced pro version. You can **give its backend demo a try online**. Or you can have a look at its **[detailed official landing page](https://mightythemes.com/product/mighty-frequently-bought-together/)**.
+Mighty WooCommerce Frequently Bought Together plugin got its advanced pro version. You can **[give its backend demo a try online](https://try.mightythemes.com/mighty-frequently-bought-together/product/hoodie-with-zipper/)**. Or you can have a look at its **[detailed official landing page](https://mightythemes.com/product/mighty-frequently-bought-together/)**.
 
 
 ## Key Features
@@ -30,7 +30,7 @@ Mighty WooCommerce Frequently Bought Together plugin got its advanced pro versio
 * Two different box positions - Below the Product Summary and Below the product tabs.
 * You can set the price method to From Sale Price or From Regular Price.
 * Choose from the related products or select the custom products for the page.
-Full Styling options.
+* Full Styling options.
 * When none is chosen, related products can be set as default products.
 * You can choose whether you want to display all the products or want any number of products in the recommendations.
 * Compatible with all WordPress themes and WooCommerce plugins.
@@ -38,10 +38,10 @@ Full Styling options.
 ## Mighty Frequently Bought Together Pro Features
 * All the features from Free Versions
 * Support different types of products:
-    1. Related Products
-    2. Cross Sells
-    3. Up Sells
-    4. Custom Selection
+    * Related Products
+    * Cross Sells
+    * Up Sells
+    * Custom Selection
 * Two different products layouts
 * Frequently Bought Together box positions
 * Control the Image Size
@@ -55,7 +55,7 @@ Full Styling options.
 * Control the size of product images
 * Customize the look and feel as per your needs
 
-**Grab Pro Version || Try Live Backend Demo**
+**[Grab Pro Version](https://mightythemes.com/product/mighty-frequently-bought-together) || [Try Live Backend Demo](https://try.mightythemes.com/mighty-frequently-bought-together/product/hoodie-with-zipper/)**
 
 ## Frequently Asked Questions
 
@@ -63,7 +63,7 @@ Full Styling options.
 
 The Mighty Frequently Bought Together is a simple and easy to use WooCommerce product recommendation plugin. You can simply install and use it on your WordPress website. To know more about how to use it, check out its **[official documentation here](https://mightythemes.com/docs/docs-category/mighty-fbt/)**.
 
-**How can I use the Mighty Frequently Bought Together Plugin?**
+**Do I need technical or coding knowledge to use the plugin?**
 No, you don't need any coding knowledge in order to use this plugin. If you know how to use WordPress, you can use this plugin.
 
 **Does this plugin support the variable products?**
@@ -91,7 +91,10 @@ Create an issue on the desired product or maybe give us a ⭐. 😀
 ## Changelog
 
 ### 1.0.1
-* Fixed issues and bugs
+* Fixed logic of related products
+* Fixed dropdown list of all products in custom selection
+* Fixed box position
+* Fixed minor bugs and issues
 
 ### 1.0.0
 * Initial release.
