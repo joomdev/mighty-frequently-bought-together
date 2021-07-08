@@ -6,7 +6,7 @@ namespace MightyFBT;
  * Plugin Name: Mighty Frequently Bought Together
  * Description: Give more choices to users when purchasing your product by showing <strong>Frequently Bought Together</strong> products.
  * Plugin URI: https://mightythemes.com/products/mighty-frequently-bought-together/
- * Version:     1.0.0
+ * Version:     1.0.1
  * Author:      MightyThemes
  * Author URI:  https://mightythemes.com/
  * Text Domain: mighty-frequently-bought-together
@@ -19,7 +19,7 @@ use MightyFBT\Classes\MightyProduct;
 
 if (!defined('ABSPATH')) exit; // Exit if accessed directly
 
-define( 'MIGHTY_FBT_VERSION', '1.0.0' );
+define( 'MIGHTY_FBT_VERSION', '1.0.1' );
 define( 'MIGHTY_FBT_DIR_PATH', plugin_dir_path( __FILE__ ) );
 define( 'MIGHTY_FBT_PLG_URL', plugin_dir_url( __FILE__ ) );
 define( 'MIGHTY_FBT_PLG_BASENAME', plugin_basename( __FILE__ ) );
