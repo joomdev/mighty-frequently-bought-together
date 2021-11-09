@@ -24,7 +24,6 @@ class MightyHelper
 
             $setting_data = [
                 'version' => MIGHTY_FBT_VERSION,
-                'pricing_method' => 'sale_price',
                 'default_product' => 'related',
                 'box_position' => 'woocommerce_after_single_product_summary',
                 'layout' => 'view_1',

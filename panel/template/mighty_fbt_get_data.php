@@ -12,7 +12,7 @@ class Mighty_fbt_page
         add_action(get_option('mighty_fbt_setting_data')['box_position'], [$this, 'add_fbt_module'], 1);
 
         add_shortcode('mighty_fbt_data', [$this, 'mighty_fbt_show_data']);
-        add_filter('woocommerce_cart_calculate_fees', [$this, 'add_fees'], 10);
+
     }
     public static function add_fbt_module()
     {
@@ -108,7 +108,9 @@ class Mighty_fbt_page
         $setting_data = get_option('mighty_fbt_setting_data');
 
         $curreny_symbol = get_woocommerce_currency_symbol();
-        if (!empty($product->get_image_id())) {
+
+        if ( !empty ( $product ) ) {
+        if ( !empty($product->get_image_id() ) ) {
 
             $current_product_image = wp_get_attachment_image_url($product->get_image_id());
             if (empty($current_product_image)) {
@@ -211,7 +213,7 @@ class Mighty_fbt_page
                 }
             }
         }
-        if(!empty($alternates_products_rand)){
+        if(!empty($alternates_products_rand) && !empty ( $product_data[$product_id] )){
         $cart_data = get_option('mighty_cart_discount');
         if (!empty($cart_data)) {
 
@@ -259,66 +261,8 @@ class Mighty_fbt_page
             require_once MIGHTY_FBT_DIR_PATH . 'pro/panel/template/mighty_fbt_view2.php';
         }
     }
-
-    public function add_fees()
-    {
-        $flat_saving_amount = 0;
-        $per_saving_amount = 0;
-        $cart_data = get_option('mighty_cart_discount');
-        $product_ids = get_option('mighty_cart_products_ids');
-        if (!empty($product_ids)) {
-
-            foreach ($product_ids as $value) {
-                if (array_key_exists($value, $cart_data)) {
-                    $alternate_product = $cart_data[$value];
-                }
-                $product_cart_ids = [];
-
-                foreach (WC()->cart->get_cart() as $cart_item) {
-
-                    array_push($product_cart_ids, $cart_item['product_id']);
-
-                    $check_product = array_intersect($alternate_product, $product_cart_ids);
-                    if(!empty($check_product)) {
-                        $product_cart_id = WC()->cart->generate_cart_id($value);
-
-                        $in_cart = WC()->cart->find_product_in_cart($product_cart_id);
-
-                        $current_product = get_option('mighty_fbt_save_data');
-                        if (!empty($in_cart) && !empty($current_product)) {
-
-                            if (array_key_exists($value, $current_product)) {
-
-                                $current_product = $current_product[$value];
-                            }
-
-                            $total_product = WC()->cart->get_cart_contents_count();
-                            $total_amount = floatval(WC()->cart->get_cart_contents_total());
-
-                            if (isset($current_product['discount']) && $current_product['discount'] == 'on') {
-                                $discount_type = $current_product['discount_type'];
-
-                                $discount_value = $current_product['discount_value'];
-                                if ((($current_product['apply_condition_discount'] == 'on') && ((!empty($current_product['discount_user_spend']) && $current_product['discount_user_spend'] <= $total_amount) || (!empty($current_product['discount_user_choose']) && $total_product >= $current_product['discount_user_choose']))) || (!empty( $discount_value)  && $total_product-1 >= count($alternate_product)) ) {
-                                    if ($discount_type == 'flat') {
-                                       
-                                        $flat_saving_amount = number_format($discount_value, 2);
-
-                                    }
-
-                                    if($discount_type == 'percentage') {
-                                        $per_saving_amount = number_format((($total_amount * $discount_value) / 100), 2);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            $total_saving_amount = $flat_saving_amount + $per_saving_amount;
-
-            WC()->cart->add_fee(get_option('mighty_fbt_setting_data')['discount_name'], -$total_saving_amount, true);
-        }
     }
+
+  
 }
 new Mighty_fbt_page();

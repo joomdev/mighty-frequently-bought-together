@@ -112,7 +112,7 @@ if (isset($no_of_alternate_product) && $no_of_alternate_product >= 1) {
 
                   $alternate_products = wc_get_product($value);
 
-                  if ($alternate_products->get_sale_price() && $setting_data['pricing_method'] == 'sale_price') {
+                  if ($alternate_products->get_sale_price()) {
 
                      $current_product_totalprice += $alternate_products->get_sale_price();
                   } else {
@@ -181,7 +181,7 @@ if (isset($no_of_alternate_product) && $no_of_alternate_product >= 1) {
          <!-- START Single Product -->
          <div class="mt-fbt-item">
 
-            <?php if (!empty($current_sale_price) && ($setting_data['pricing_method'] == 'sale_price' || $setting_data['pricing_method'] == 'regular_price')) { ?>
+            <?php if (!empty($current_sale_price) ) { ?>
 
                <input class="mt-fbt-check-input" type="checkbox" id="" 
                <?php echo (isset($current_product['product_checked'])) 
@@ -244,7 +244,7 @@ if (isset($no_of_alternate_product) && $no_of_alternate_product >= 1) {
 
                $regular_price = $alternate_products->get_regular_price(); ?>
 
-               <?php if ($sale_price && $setting_data['pricing_method'] == 'sale_price') { ?>
+               <?php if ( $sale_price ) { ?>
 
                   <input class="mt-fbt-check-input" type="checkbox" id="" 
                   <?php echo (isset($current_product['product_checked'])) 

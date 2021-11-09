@@ -3,9 +3,9 @@ Contributors: mightythemes1
 Author URI: https://mightythemes.com  
 Plugin URI: https://mightythemes.com/product/mighty-frequently-bought-together  
 Requires at least: 4.0 or higher  
-Tested up to: 5.7  
+Tested up to: 5.8 
 Requires PHP: 5.6  
-Stable Tag: 1.0.1  
+Stable Tag: 1.0.2  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html  
 Tags: WooCommerce, Frequently bought together, bought together, upsells, woo, mighty
@@ -101,6 +101,11 @@ We 💗 Open Source. Come and see our products on [GitHub](https://github.com/mi
 Create an issue on the desired product or maybe give us a ⭐. 😀
 
 ## Changelog
+
+### 1.0.2
+* Fixed minor bugs and issues
+* Fixed logic of pricing method (pro)
+* Fixed discount issue (pro)
 
 ### 1.0.1
 * Fixed logic of related products

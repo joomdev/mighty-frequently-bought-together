@@ -141,7 +141,6 @@ class Mighty_panel
             $data = [
 
                 'version' => MIGHTY_FBT_VERSION,
-                'pricing_method' => sanitize_text_field($_POST['pricing_method']),
                 'default_product' => sanitize_text_field($_POST['default_product']),
                 'box_position' => sanitize_text_field($_POST['box_position']),
                 'layout' => sanitize_text_field($_POST['layout']),

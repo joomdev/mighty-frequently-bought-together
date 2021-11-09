@@ -4,11 +4,6 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-$pricing_method = [
-    'sale_price' => 'Sale Price',
-    'regular_price' => 'Regular Price'
-];
-
 $default_product = [
     'related' => 'Related',
     'none' => 'None'
@@ -32,19 +27,6 @@ $pro_general = '';
 <form method="post" action="" novalidate="novalidate">
     <table class="form-table" role="presentation">
         <tbody>
-            <tr>
-                <th scope="row"><label for="blogname">Pricing Method</label></th>
-                <td><select name="pricing_method" id="default_role">
-
-                        <?php foreach ($pricing_method as $key => $value) { ?>
-
-                            <option <?php echo ((isset($setting_data['pricing_method']) && (strtolower($setting_data['pricing_method']) == strtolower($key))) ? 'selected' : '') ?> value="<?php echo $key; ?>"><?php echo $value; ?></option>
-
-                        <?php } ?>
-                    </select>
-                    <p class="description" id="tagline-description">Calculate prices either from the sale price or the regular price of products.</p>
-                </td>
-            </tr>
 
             <tr>
                 <th scope="row"><label for="blogdescription">Default Products</label></th>
