@@ -25,6 +25,7 @@ class MightyHelper
             $setting_data = [
                 'version' => MIGHTY_FBT_VERSION,
                 'default_product' => 'related',
+                'product_character_limit' => '',
                 'box_position' => 'woocommerce_after_single_product_summary',
                 'layout' => 'view_1',
                 'uninstall_data' =>'on'

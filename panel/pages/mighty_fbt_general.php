@@ -41,6 +41,13 @@ $pro_general = '';
                 </td>
             </tr>
             <tr>
+                <th><label for="product_character_limit">Product Character limit</label></th>
+                <td>
+                    <input name="product_character_limit" type="number" id="product_character_limit" value="<?php echo isset( $setting_data['product_character_limit'] ) ? $setting_data['product_character_limit'] : ''; ?>" class="regular-text code">
+                    <p class="description" id="tagline-description">Here you have to enter the Product Title Character limit. This will be Product Title Character Limit.</p>
+                </td>
+            </tr>
+            <tr>
                 <th scope="row"><label for="blogname">Box Position</label></th>
                 <td><select name="box_position" id="default_role">
 

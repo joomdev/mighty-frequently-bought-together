@@ -142,6 +142,7 @@ class Mighty_panel
 
                 'version' => MIGHTY_FBT_VERSION,
                 'default_product' => sanitize_text_field($_POST['default_product']),
+                'product_character_limit' => sanitize_text_field($_POST['product_character_limit']),
                 'box_position' => sanitize_text_field($_POST['box_position']),
                 'layout' => sanitize_text_field($_POST['layout']),
                 'uninstall_data' => ( isset($_POST['uninstall_data']) ? sanitize_text_field($_POST['uninstall_data']) : 'off')

@@ -191,7 +191,14 @@ if (isset($no_of_alternate_product) && $no_of_alternate_product >= 1) {
 
                <label class="mt-fbt-check-label" for="">
 
-                  <strong>This Item : </strong> <span> <?php echo $product->get_title(); ?> </span>
+                  <strong>This Item : </strong> 
+                  <?php if ( !empty ( $setting_data['product_character_limit'] ) && count_chars( $product->get_title() ) > $setting_data['product_character_limit'] ) { ?>
+               <span title="<?php echo $product->get_title(); ?>"> 
+                  <?php echo substr( $product->get_title(), 0, $setting_data['product_character_limit'] ) . '...'; ?> 
+               </span>
+               <?php } else { ?>
+                  <span> <?php echo $product->get_title(); ?> </span>
+               <?php } ?>
                   <s>
                      <span class="mt-fbt-item-price">
                         <?php echo $curreny_symbol . ' ' . number_format($current_regular_price, 2); ?>
@@ -212,8 +219,17 @@ if (isset($no_of_alternate_product) && $no_of_alternate_product >= 1) {
                data-product_price="<?php echo number_format($current_regular_price, 2); ?>">
 
                <label class="mt-fbt-check-label" for="">
+                  
+                  <strong>This Item : </strong> 
+               
+               <?php if ( !empty ( $setting_data['product_character_limit'] ) && count_chars( $product->get_title() ) > $setting_data['product_character_limit'] ) { ?>
+               <span title="<?php echo $product->get_title(); ?>"> 
+                  <?php echo substr( $product->get_title(), 0, $setting_data['product_character_limit'] ) . '...'; ?> 
+               </span>
+               <?php } else { ?>
+                  <span> <?php echo $product->get_title(); ?> </span>
+               <?php } ?>
 
-                  <strong>This Item : </strong> <span> <?php echo $product->get_title(); ?> </span>
 
                   <?php if (!empty($current_regular_price)) : ?>
                      <strong>
@@ -252,7 +268,19 @@ if (isset($no_of_alternate_product) && $no_of_alternate_product >= 1) {
                   ?> data-product_id="<?php echo $value; ?>" 
                   data-product_price="<?php echo number_format($sale_price, 2); ?>">
 
-                  <label class="mt-fbt-check-label" for=""><span><a href="<?php echo esc_url(get_permalink($alternate_products->get_id())); ?> "><?php echo $alternate_products->get_title(); ?></a></span>
+                  <label class="mt-fbt-check-label" for="">
+                  <?php if ( !empty ( $setting_data['product_character_limit'] ) && count_chars( $alternate_products->get_title() ) > $setting_data['product_character_limit'] ) { ?>
+                  
+                  <span title="<?php echo $alternate_products->get_title(); ?>">
+                     <a href="<?php echo esc_url(get_permalink($alternate_products->get_id())); ?> ">
+                     <?php echo substr( $alternate_products->get_title(), 0, $setting_data['product_character_limit'] ) . '...'; ?>
+                     </a> </span>
+                  <?php } else { ?>
+                     <span>
+                     <a href="<?php echo esc_url(get_permalink($alternate_products->get_id())); ?> ">
+                     <?php echo $alternate_products->get_title() ?>
+                     </a> </span>
+                  <?php } ?>
 
                      <s><span class="mt-fbt-item-price"><?php echo $curreny_symbol . ' ' . number_format($regular_price, 2); ?></span></s></label>
 
@@ -263,7 +291,21 @@ if (isset($no_of_alternate_product) && $no_of_alternate_product >= 1) {
                   <?php echo (isset($current_product['product_checked'])) 
                   && $current_product['product_checked'] == 'on' ? '' : 'checked';
                   ?> data-product_id="<?php echo $value; ?>" 
-                  data-product_price="<?php echo ($regular_price) ? number_format($regular_price, 2) : number_format(0, 2); ?>"> <label class="mt-fbt-check-label" for=""><span><a target="_blank" href=" <?php echo esc_url(get_permalink($alternate_products->get_id())); ?>"><?php echo $alternate_products->get_title(); ?></a></span>
+                  data-product_price="<?php echo ($regular_price) ? number_format($regular_price, 2) : number_format(0, 2); ?>"> <label class="mt-fbt-check-label" for="">
+                     
+                  
+                  <?php if ( !empty ( $setting_data['product_character_limit'] ) && count_chars( $alternate_products->get_title() ) > $setting_data['product_character_limit'] ) { ?>
+                  
+                  <span title="<?php echo $alternate_products->get_title(); ?>">
+                     <a href="<?php echo esc_url(get_permalink($alternate_products->get_id())); ?> ">
+                     <?php echo substr( $alternate_products->get_title(), 0, $setting_data['product_character_limit'] ) . '...'; ?>
+                     </a> </span>
+                  <?php } else { ?>
+                     <span>
+                     <a href="<?php echo esc_url(get_permalink($alternate_products->get_id())); ?> ">
+                     <?php echo $alternate_products->get_title() ?>
+                     </a> </span>
+                  <?php } ?>
 
                   <strong><span class="mt-fbt-item-price"> <?php echo ($regular_price) ? $curreny_symbol . ' ' . number_format($regular_price, 2) : $curreny_symbol . ' ' . number_format(0, 2); ?></span></strong></label>
 
