@@ -10,7 +10,7 @@ $default_product = [
 ];
 
 $box_position = [
-    'woocommerce_short_description' => 'Below Product Summary',
+    'woocommerce_before_add_to_cart_form' => 'Below Product Summary',
     'woocommerce_after_single_product' => 'Below Product Tabs'
 ];
 
