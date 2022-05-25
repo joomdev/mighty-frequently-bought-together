@@ -209,7 +209,25 @@ class Mighty_fbt_page
 
                     $alternates_products_rand = $alternates_products;
                 } else {
-                    $alternates_products_rand = [$alternates_products[rand(0, count($alternates_products) - 1)], $alternates_products[rand(0, count($alternates_products) - 1)]];
+
+                    $random_values = [];
+			
+                    for ( $i = 0; $i< count($alternates_products); $i++ ) {
+						
+						if( count($random_values) != 2 ) {
+
+                        $alter_product_id = $alternates_products[rand(0, count($alternates_products) - 1)];
+						
+						if( in_array( $alter_product_id, $random_values) ) {
+							
+						} else {
+							array_push( $random_values, $alter_product_id ) ;
+						}
+                    }
+						
+				}
+
+                    $alternates_products_rand = $random_values;
                 }
             }
         }
