@@ -221,7 +221,7 @@ class Mighty_fbt_page
 				}
                     $alternates_products_rand = $random_values;
                 }
-            }
+            
         }
         if(!empty($alternates_products_rand) && !empty ( $product_data[$product_id] )){
         $cart_data = get_option('mighty_cart_discount');
