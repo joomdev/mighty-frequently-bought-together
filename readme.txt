@@ -3,7 +3,7 @@ Contributors: mightythemes1
 Author URI: https://mightythemes.com  
 Plugin URI: https://mightythemes.com/product/mighty-frequently-bought-together  
 Requires at least: 4.0 or higher  
-Tested up to: 5.8 
+Tested up to: 6.0 
 Requires PHP: 5.6  
 Stable Tag: 1.1.0
 License: GPLv2 or later  

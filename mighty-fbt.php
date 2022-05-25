@@ -11,7 +11,7 @@ namespace MightyFBT;
  * Author URI:  https://mightythemes.com/
  * Text Domain: mighty-frequently-bought-together
  * WC requires at least: 4.2.0
- * WC tested up to: 5.8
+ * WC tested up to: 6.0
  */
 
 use MightyFBT\Classes\MightyHelper;
