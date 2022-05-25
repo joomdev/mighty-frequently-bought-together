@@ -211,22 +211,14 @@ class Mighty_fbt_page
                 } else {
 
                     $random_values = [];
-			
-                    for ( $i = 0; $i< count($alternates_products); $i++ ) {
-						
-						if( count($random_values) != 2 ) {
-
-                        $alter_product_id = $alternates_products[rand(0, count($alternates_products) - 1)];
-						
-						if( in_array( $alter_product_id, $random_values) ) {
-							
-						} else {
+					while ( count($random_values) != 2 ) {
+						$alter_product_id = $alternates_products[rand(0, count($alternates_products) - 1)];
+						if( !in_array( $alter_product_id, $random_values ) ) {
 							array_push( $random_values, $alter_product_id ) ;
-						}
-                    }
+						} 
+					}
 						
 				}
-
                     $alternates_products_rand = $random_values;
                 }
             }
