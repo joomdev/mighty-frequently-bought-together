@@ -26,7 +26,7 @@ class MightyHelper
                 'version' => MIGHTY_FBT_VERSION,
                 'default_product' => 'related',
                 'product_character_limit' => '',
-                'box_position' => 'woocommerce_after_single_product_summary',
+                'box_position' => 'woocommerce_before_add_to_cart_form',
                 'layout' => 'view_1',
                 'uninstall_data' =>'on'
             ];
