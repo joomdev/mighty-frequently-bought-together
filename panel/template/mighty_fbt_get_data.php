@@ -197,7 +197,16 @@ class Mighty_fbt_page
 
                 $number = $no_of_alternate_product - $no_of_product;
 
-                $alternates_products_rand = array_slice($alternates_products, $number);
+                $random_values = [];
+
+                while ( count($random_values) != $no_of_product ) {
+                    $alter_product_id = $alternates_products[rand(0, count($alternates_products) - 1)];
+                    if( !in_array( $alter_product_id, $random_values ) ) {
+                        array_push( $random_values, $alter_product_id ) ;
+                    } 
+                }
+                $alternates_products_rand = $random_values;
+
             } else if ((isset($no_of_product) && !empty($no_of_product)) && $no_of_product > $no_of_alternate_product && $current_product['show_product'] == 'all_selected') {
                 $alternates_products_rand = $alternates_products;
             } else if ((empty($no_of_product) && (isset($current_product['show_product']) && $current_product['show_product'] == 'all_selected')) || (!empty($no_of_product) && $no_of_product > $no_of_alternate_product && $current_product['show_product'] == 'random_limited_products')) {
