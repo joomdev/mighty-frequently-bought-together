@@ -40,8 +40,6 @@ class Mighty_fbt_page
 
     public function mighty_enqueue_scripts()
     {
-        wp_enqueue_style('mighty_fbt_style', MIGHTY_FBT_PLG_URL . 'assets/css/fbt.css');
-
         wp_enqueue_style('mighty_fbt_main_style', MIGHTY_FBT_PLG_URL . 'assets/css/main.css');
 
         wp_enqueue_script(
